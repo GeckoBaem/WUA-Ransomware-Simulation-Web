@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>랜섬웨어 감염 시뮬레이션</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            /* 배경 이미지 설정 수정 */
+            background-color: #111827;
+            /* 이미지 주변을 채울 어두운 배경색 */
+            /* 이미지 경로를 상대 경로로 변경 */
+            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxAPDQ8NDxAPDQ0NDQ0NDQ0PDw8NDQ0NFREWFhURFRUYHSggGBolGxUVLTEhJSkrLi4uFx8zODMsNygtLisBCgoKDg0OFRAQFysdFR0tLS0tKysrLSstLS0tLS0tLS0rLSsrLSstLSsrLSstKy0rLSstLS0tLSstLSsrLS0tK//AABEIAKUBMQMBEQACEQEDEQH/xAAbAAADAQEBAQEAAAAAAAAAAAABAgMABAUHBv/EAEQQAAIBAgIGBQcHCwUBAAAAAAABAgMRBBIFEyExQVFhcZGhsQYUUnKBssEjMjNDU3TRIiVCRGNzgpKz4fAkNISUoxX/xAAZAQADAQEBAAAAAAAAAAAAAAAAAQIDBAX/xAAwEQEBAAIBAgUCBAYCAwAAAAAAAQIRAxITBCExQVFhsVJxgZEUIjJCYqEjMwXB8P/aAAwDAQACEQMRAD8A+PtHfpyMkKQWsAMioRrjTprgNMAa4BgDWFobbKGj21g0NsMmsAEAzQWALABAMPRDYNAUxkZDJgAWFo9hlDQ2DiLR7BoWhsLBo9g0LR7LYRtYAwg1h6A2DQCwaDWDQYAIBgJhmyEAYBkEAoZCAEZABsgIwBgDAQ3GBshk2UNDYOItHtgDADJDJrD0WzKIaGxUR6LY2HottlDQ22UNDbZQ0Ns4C0NlcBaVsjiKw9lcRaPYZRaPbWDQ21gG2sAZoA1gAWEe2sAYA1g0Ng0AawjBIAZDIbDLbWADYA1gDWGQ2DQAQYDFDIRkZMZGvzGQ5F1D1C3R1XJh0jqbVtcB9NLqgpBobNlHotioj0Wxyj0WzKA+kuptWHSOptWHSOoHTFcT6iSgTYqZJumTYqZEcSdK2Eoi0coZQ0NtlDQ2zQGFhaGwsIABgBigIGBigIbABSGQtDILC0bWDQ2zQaG2CARk1g0NhYR7YAZIZCkMjJDSdFEeJUTTplRNUj0pMqIptXHqH0wuqtqOTXgHR8DufLOi1wDoo65RUR6GzKI9J2fVldJdTOkHQXWR0CbgqZpToEXBpM0pUyLiuZJuJNipS5CdK2EkBwlidHtrBobBoWhsrQtKLYWjECaw9DbWFobEAyGBsMhsAZABGQoZNYNDY5Q0NjkDpLqbVh0jqbVvkPQ6o2RhobFIAZIrSdniiomnSGm1SJUTTpFxFUSK0VqsS4zqqV96TL9UGjQi+a7xzCUryWHWFfBp9zKnF8J7s9x82a3pj7dnsXclFURzArm0sLcV4jnK5quDMsuFrjzOKthmjny47HTjySuaUDGxrKSwtK2OQNDYOItHsjQtHsjROlSlsI9kJUZMZChkKADcZGT6hwqOzl4j8i8xsukNQboqC59w9QuqmVHpXeh9BdQ6iXQ+pofRS642ol6L7A6L8Drny2WwtDYpDBoocTVIovSbTqCfBFdMqeqw6w6K7cT3KZYTrH2i7rPDMO1R3YGolyF0UdcFQa4ND0WzJDJWCLiKrFGkiLVoIuRnVoI0jOummzWMaqop70mVqI3Z6KLDxfNd6Dpie5R8yvus+4Oku8jV0ZfhYi8WNaY+J08zGaFkrtI5eTwt9nZxeNxvrXj1MO43TVmcWXHZ6vQx5JfRPITpWwlEWjlDVi6R1FlAVxVMiZOgXTT6nHc53RoUxkpEpNGw9EwAUMjIZMAPFDiadFpFSDYsUjIuVFisar5sqZVFxhlU5qL64orq+ha+qkcj3wXsbXxKnT8JtynurGlTfCS6pJ/AuYYVFzzikcLB7ptdcU/iVOLH5ReXL3i0cBynF9d18C5w32rO8895TxwM+CT6pRK7OUTefBRYSfGEuy5UwvvE3lx+TLDrimi5xxPcOsGuA+1E94JYDoT9guzBPEfUnmK5dguzFd+mjglzfiPslec6wj6H3D7Zd6Gjh5cviV0VN5J8qRpvkVIi5RWMGUi0UwLW14OXovsYbRljHVSqSXC3W0F82OWEdlHEwX0kIzXReL7jLLjyv9N0MdT+qbn7Fx+B0diIyeSvRqRp1J5ouEoPLBys09vA5eTDmnnlqz/b0uDm4tzHHql/ePnleltdtxhnh5+T0cM/LzR1Zn0tOoskKnE2TVwtyTeWmcm3bo6Y01WLLiKeJUTWsGhtrABGQoAZFRNUUStJ2AA8RxNOmURkxpPFlRNWizSVnYvBmkrOx0U5muNZZR0wqG0yY3F0063SaTJllg6IYh8ytsrgvTqp71F+xDZZY2elXjKHor2NoWr8s/5lEqb3p29gWZJ3lFY4LDS+snTfTTzLuZlcuWf2y/q2xzx98rP0UxGhqUbKOIjKTjCdnTnFWlFSW19DM8PEZ5f2eX5ts5hj5de7+XyjHRUuDjP1alPwvc072PvufpWWsr6av6qLR1SO+lUtzyya7UPvYX+6Iyw5PivR0JSp55qpCDSw+IlaUIvaqcnfajl8Vb0y433nv9W3gv8Assznlq+v5JYlRcKSts83w7spSirulFt7H0lcU88r9b90+K5bjljj7an2cTwUHuc4+1SN+vKOfHl37M9FSfzZp9acfxDvyesbySpz0XXX6Ob1ZJ928c8Rh8q7V+EatOcIVHOMo/I1/nRa+rkLlzxy47qq4cLOTHcfiakzz7k9mYpuZO16TkRVRKoRVxIho8s43YpBlRNUiy4iqxLiKNxkNhkwAUgBoocTVYsuIsKJQoZGTGRojiVIsqJqkGXKirQZpKzq0WaSs7FoSLlZ2L05GsrOx0wRrGNrojIpnYeMmxosViCKvCRTOx2V5Xa/d0l2U4mHHPK/nfuXL6/pPsRMtkrTqOLum0+abRGWMvrC3cfOXT0aGPqOnXjKcpReFxOyTb+pkcnLw4S42TV3Pu7vCeI5Msrhldyy/Z24WcXQoKVOnO2Fw22UIuX0MOO855jd5WWzzvv9XfyXHymWMvlPWfRWNCg99JL1Zzj4tjuXJP7vsicPBb/Rr8qtDBUXu1kfbGfwRF5eT6VrPD8PtuLw0dHhU/mg14Nmd58vfH/baeFx9sv9OPyjwbho/FyzRaWGrN2bT+a+DQseaXKTS/4eyb3K+KTkb2tJEpMzq4jKRFq5CORO1aC4tnp5lzkdhoscKqwLiKrFlxFG4yNGQ5SsGY6UaLCCnRSaNxkIBkAFDI8SokyGVVgXGdXgaRnVYlxFViXEV00uZtixydUIm0jG1WBTOqxY0VVMEKwY0WOyrvXqUvciZ4en637o5PX9gRTI5JKwf5FX7tif6MjDm9J+c+8dHhJ/y/pfs9jDfRUPu2F/owOPD0v537vT5b/P+32dEGFGLppGVb412UmY5OjFx+VS/NuM+61vdIx/qjb2fBnI3tGk5sm1cTbJ2rQIRjfrDyJ5bOR2hcR6Mpse6WodVGV1VFxg61h1UdEFVGPqpdMF1WPqpdMFVn/iDro6IZYiXR2Fdyp7eI6+XQHXR0QfOH0B3KO3A84fQPuUduGWJlyXeHcpduCsVLku8fdy+C7WJ1i5cl3lTly+E9rE0cZL0V3lTly+CvDj8qxx0vRXeVObL4ReDH5UjpGXoLvLniMvhF8Pj8qR0jL0O9lTxGXwm+Hx+V6ekpL6vvf4GmPiMvwssvDY3+51Q0vL7J9r/A2ni7+FjfB4/iUjpd/ZPtf4FTxV/Ci+Dn4loaXf2Uu3+xc8TfwovhJ+JaGlf2Uu3+xU8R/izvhP8lY6U/Zz/wA9hU5/oi+Fn4np1sc8sZajEq9OnvotRdoJXUr7Vs7yOPm9Zr5Z8nhd+fVElpP9lW/kNe59Ky/hf8odaUX2Vb+QXX9E3wt/FFlpBaus9ViPoKyvqm4rNBxu3wW3eY8ue9TXvG/hvDdOfV1T9How03FU6XyGM2UKEf8AbSyvLTirp32rZsZyY5a8vz93dy8Fyy3to+UsF+r4z/rv8R3IseC/MdFPyqgv1XHPqw7/ABM63x47PeLQ8r4L9T0g/wDjf3MrPq2mLn0/5WRq4LE0lg8fB1KFSCnUw+WnC63yd9iImHnPNp7Pk0ka04kyFwhKhQ4VPYZPKkcddsAQMiiMhkKAjopJ0UkUwgqmYtGjKQ5S0pEpFawDasUXIi1RF6RsyiOQbUjEuRFp4xHIm1VR2F6RtakjTGM8q6aZrGOW1os0jOqotnVYjTVIsaKqmNFd0969Sn7iM8PT92fJfMUOsadISbXVhsM508S+EcJiX/5s5fEZa6J85T7u3wGFyzyy9pK9GUbKHRRod1KJz8X9P7/d1+J/7aemVU4OyjcxydWDtoyMMnVhXL5Vy/NmM+7VPAjGfzRvvyfCXE6dJ2jOFjOxpLtGSM6uUt7CUOtYdQ6XA0czpawDZkitFsQIRkZDhGQya4AUxkpEqJqqLiDRKiapFlRFikWXKmrRZcZ1SLKiarE0iKaI4mrw3GkZ1SJcRVYMuIq8GaRlVIjRVYjRVYjRXoVFtXqU/cRnh/T+7Lk8smiNlVIsmor09HV0qOLjzweI9w4/EY/zcd/yj0v/AB2epyY/ONdVSPzf3dL+nEy4r/L+/wB3T4if8lNTgO1OONdtCDMcq6uPGu6hRk+DfsOfLKT3deGFvs4fK+m46Mxl9n+nmtux9hPHlLnGmWNmL4ZNHXWcTaI0vaM4EXFcyTaJ0vZMpOlbcSZzugQApj2WmYBkwGhTGRrjJkwBkUR4scTTqRW06UTKiadSK2nSiZW0WKxZpKixWJcZ1WLLlRYpEqJq8ImsjK1eEDSRnavCmXMWVyWjSZppncl4UGPTO5xaOGYM7yR0UcDUb2QlLqTZN5MZ60pbl6R6eO0bVhK8oOEclL8qbUI/RxvtbObh8Rx3HW/Pz+7Xn8PyTK+Xk51RS31aUf48/u3Ne5v0xv8A9+bDs35hlqlvq39SnJ+9YW+S/wBv+x2sffL/AEtTqU9XXUdZKTwuJ2yUYr6N8E2Yc0z/AJbda6p93R4THCZXW7dV6NbSCg1FUoyap0k5SlKz+TjwVjDi4Lljvq1PP7tvFeMmHLlj0b19Sw0tPhGlDqhf3my74ae9tY4f+QzvtJ+i60pUW+plXRlp+FiL4fD43/t0Y+M5Pxf+iz01BfPrZv4nPwCeGvtiv+J+cq83TumKVTCYilHNKUqM9uW0VZX+A74bLH+a+i8PEzLKYx8vmyK7om2RVwjVyTSlAixpMiZRaPby7nE7RuAGLKhU1w2TIYMhpojAoCFMZGQyp0Uk6ZSRTAl4I1kZ2r0oGmMZ5V0wpvkazGsblDqnZ7Wl1tFTHXqXVv0Xpygt8o9ppLj8srMvaKU69NO7lfqTLnJh71GXHn8LRxsOCk+xF97FneHL5Vjjlwj2sqcv0ReC/KsdIdEV3j7kRfDnWknz7Eh9yJ/hvoP/ANN8GHXC/hoV46T3yduVwmUVOGT0ho4prapNdTaHdX1hzGz0UjjJek31/leIaibidYx8Un7LeA/1ReOOihpPKqiUF8pSqUm8z2KcbN2M+Tj69bvpZf2Vxzt22e80tidKKbTSlTeWKfzai2RSut3Inj47hNesTzYYcmdz9653XlL61r2OPga6+iOjGexdQ3+kpdcreI9jciiws/Rb6lfwDrnyWxWGk4Vo2d/NsQ7NNbqUmZeIynR5e9n3b+Gn/JPpt+KqpJ2djgymnr4+aE5IztjWSouoZ9S+kspXFachRKeTc4XcwARkNxkaIxTopNFDIyGlnYBBug3BqmU10j6oXSOtXLvH1F0mVboQ+tNwUWIl0L2F9yp7cFYmfpPwDuZfI7ePwZVZPe2/axzK33T0yex4yKlTYopF7TYpGqVMkXE6rlTNPbP5wV3E9sVXH1jtiqzDrpdEUjVfMuZouEVhULmSLi6YTuayscotBmkZ2KxZURYrEpFUikNNtdFNIbHLbphKKFdsrMlI6VpUfymoya4PaYcmG553TXg485lvp3+bztM+XeIqQdGElSoyjKEowio5otWab3nBePhwy3Ju/Ne3h3csdZXU+I/F1ql3czyy3XTjjqITkZ2tZC3JMlxK01w2NPLOJ2sAa4wKYEbMMtDmY90tRkwAgBGQoZGQyGwwKAhTHstGUh7LRozHKm4nUytl0jnHstGUh7LR1IrabDqRSbDqQ9p0eLLlTYqpFSosWhI0lZ2OinM1xyZZYqqoXMkdKkaxczRcFY1ipki4G84txH1xPb2WWOSJvLIqcG3NX0k+Zln4jTbDw0eZXxblxOTPltdmHFMXHUmYWt8Ym5EWrkI2K1Uhc4tnpkw2NNYQeacjsYAwAUMhQyEAIBhkKYDTZh7LRkxyka49kwAUxkKYyNcAKYyNcaTJjGjxZURYpGRcqbDXHstGjIcqbDqZW06UjUKmSbitCoaTJncVYzLmSLiZVCpkm4tLEWC8gnGhUxRllytceJzTxJleRtONGda5nc2kw0GYWxojmLqV0pzkRauRNslQCMUxkOYBp5xyutrgQgGGBuBMMCAa4FoUwAgRkyoVG4yZMANwIUx7GjJjIbjIbj2QphsaOpFbTYZSHstGUh7LQqQ9lo8ZFSpsMpD2mw6qFdRdJlWH1p6G14dY7ZJVibmqYJSqEXJpMUnMja9Ezk7Vo0p7B7KYp5ydq02YNjQNi2YZg2NFzC2emzBsacZg6GEGQwYCYYYAIEwBrgGuMaOmNOhuMMBCAa4bGjXGWmuPZaNcNjQpjLRkx7IUx7LRkx7SOYexoc49loc4dQ6W1gdQ6W1gdQ6QdQOodJHUJuSpiR1SepXSXOLZ6DMLZ6bMGxoLhsDmDY0zYbGi5hbPQjDCDlMWzAGGDICYYYQa4wzEAuAEAa4ya4xpkwhaMMmAGGTABTGQpjIyY4RrjIbjJrgAuI9BmA9NmDZaByFs9FcidnorkG1aBsnZ6C4DQqQ9lobgGuA0FwPTXFsM2AG4ya4B/9k=');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-attachment: fixed;
+            /* 배경 고정 */
+
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .desktop-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100px;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .desktop-icon:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .desktop-icon .icon {
+            font-size: 3rem;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .desktop-icon .filename {
+            color: white;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 8px;
+            word-break: break-all;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .locked .icon {
+            color: #ef4444;
+        }
+
+        .locked .filename {
+            color: #fca5a5;
+        }
+
+        .ransom-note-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 40;
+        }
+
+        .ransom-note {
+            font-family: 'Nanum Gothic', sans-serif;
+            background-color: #1a1a1a;
+            color: #dcdcdc;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 30px #ff0000;
+            z-index: 50;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-10px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(10px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 바탕화면 아이콘 -->
+    <div id="desktop" class="p-4 grid grid-cols-3 sm:grid-cols-5 md:grid-cols-10 gap-4">
+        <div class="desktop-icon file" data-filename="우리집 강아지 팡이.jpg" data-icon="fa-solid fa-file-image">
+            <i class="fa-solid fa-file-image icon"></i>
+            <span class="filename">우리집 강아지 팡이.jpg</span>
+        </div>
+        <div class="desktop-icon file" data-filename="진짜 1년동안 피땀흘려 만든 졸업작품 발표자료(절대로 지우지마!!).pdf" data-icon="fa-solid fa-file-pdf">
+            <i class="fa-solid fa-file-pdf icon"></i>
+            <span class="filename">진짜 1년동안 피땀흘려 만든 졸업작품 발표자료(절대로 지우지마!!).pdf</span>
+        </div>
+        <div class="desktop-icon file" data-filename="글쓰기 과제.docx" data-icon="fa-solid fa-file-word">
+            <i class="fa-solid fa-file-word icon"></i>
+            <span class="filename">글쓰기 과제.docx</span>
+        </div>
+        <div class="desktop-icon file" data-filename="직박구리.zip" data-icon="fa-solid fa-file-zipper">
+            <i class="fa-solid fa-file-zipper icon"></i>
+            <span class="filename">직박구리.zip</span>
+        </div>
+        <!-- 악성 파일 -->
+        <div id="malware" class="desktop-icon" data-filename="완전 청렴한 1.7.10 마인크래프트 복돌.exe"
+            data-icon="fa-solid fa-file-invoice-dollar">
+            <i class="fa-solid fa-file-invoice-dollar icon text-yellow-300"></i>
+            <span class="filename">완전 청렴한 1.7.10 마인크래프트 복돌.exe</span>
+        </div>
+        <div class="desktop-icon file" data-filename="대학세 암호학 발표자료.pptx" data-icon="fa-solid fa-file-powerpoint">
+            <i class="fa-solid fa-file-powerpoint icon"></i>
+            <span class="filename">대학세 암호학 발표자료.pptx</span>
+        </div>
+    </div>
+
+    <!-- 랜섬 노트 (숨겨짐) -->
+    <div id="ransom-note-container" class="hidden fixed inset-0 flex items-center justify-center p-4">
+        <div class="ransom-note-backdrop"></div>
+        <div id="ransom-note" class="ransom-note w-full max-w-2xl rounded-lg p-6 flex flex-col items-center">
+            <i class="fa-solid fa-triangle-exclamation text-6xl text-red-600 mb-4"></i>
+            <h1 class="text-3xl font-bold text-red-500 text-center">당신의.모든 파일, 암호화 되었다.!</h1>
+            <p class="text-center my-4">데이터를 복구하고 싶습니까? 유일한 방법은 저희의 복호화 키를 구매하는 것입니다.<br>시간이 지나면 가격은 2배로 오르고, 24시간 후에는
+                모든 데이터를 영원히 잃게 됩니다.</p>
+
+            <div class="my-4 p-4 bg-black w-full rounded-md text-center">
+                <p class="text-lg">남은 시간:</p>
+                <div id="timer" class="text-4xl font-bold text-yellow-400 tracking-widest">23:59:59</div>
+            </div>
+
+            <p>복호화 키를 받으려면 아래 주소로 0.05 비트코인을 보내십시오.</p>
+            <p id="btc-address"
+                class="text-sm bg-gray-800 p-2 my-2 rounded-md break-all w-full text-center text-green-400">
+                1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</p>
+            <button id="pay-btn"
+                class="w-full bg-yellow-500 text-black font-bold py-3 rounded-md mt-4 hover:bg-yellow-600 transition-colors">결제하고
+                복호화 키 받기</button>
+
+            <div class="w-full mt-6">
+                <p class="text-center mb-2">복호화 키를 입력하세요:</p>
+                <div class="flex space-x-2">
+                    <input type="text" id="key-input"
+                        class="flex-grow bg-gray-900 border border-gray-600 rounded-md p-2 text-center text-green-400 focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="이곳에 키를 붙여넣으세요">
+                </div>
+                <button id="decrypt-btn"
+                    class="w-full bg-green-600 text-white font-bold py-3 rounded-md mt-2 hover:bg-green-700 transition-colors">파일
+                    복호화</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 로딩 및 완료 메시지 -->
+    <div id="message-overlay"
+        class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex-col items-center justify-center text-white text-2xl space-y-4 text-center p-4">
+        <i id="message-icon" class="text-6xl"></i>
+        <p id="message-text"></p>
+    </div>
+
+
+    <script>
+        const malwareFile = document.getElementById('malware');
+        const files = document.querySelectorAll('.file');
+        const ransomNoteContainer = document.getElementById('ransom-note-container');
+        const timerEl = document.getElementById('timer');
+        const payBtn = document.getElementById('pay-btn');
+        const keyInput = document.getElementById('key-input');
+        const decryptBtn = document.getElementById('decrypt-btn');
+        const messageOverlay = document.getElementById('message-overlay');
+        const messageIcon = document.getElementById('message-icon');
+        const messageText = document.getElementById('message-text');
+
+        const decryptionKey = "PrivateKey_for_Decryption_77A1_B29F_C310_D4E5";
+        let timerInterval;
+        let time; // 전역 변수로 선언
+
+        // 악성 파일 클릭 이벤트
+        malwareFile.addEventListener('dblclick', () => {
+            showMessage('fa-solid fa-spinner fa-spin', '악성 코드 실행 중...', 2000, startEncryption);
+        });
+
+        // 암호화 시작
+        function startEncryption() {
+            malwareFile.classList.add('hidden');
+
+            files.forEach((file, index) => {
+                setTimeout(() => {
+                    file.classList.add('locked');
+                    const icon = file.querySelector('.icon');
+                    const filename = file.querySelector('.filename');
+                    icon.className = 'fa-solid fa-lock icon';
+                    filename.textContent = file.dataset.filename + '.locked';
+                }, index * 300);
+            });
+
+            setTimeout(showRansomNote, files.length * 300 + 500);
+        }
+
+        // 랜섬노트 표시
+        function showRansomNote() {
+            ransomNoteContainer.classList.remove('hidden');
+            startTimer();
+        }
+
+        // 타이머 UI 업데이트
+        function updateTimerDisplay() {
+            if (time <= 0) {
+                time = 0;
+                clearInterval(timerInterval);
+                timerEl.textContent = "00:00:00";
+
+                payBtn.disabled = true;
+                decryptBtn.disabled = true;
+                keyInput.disabled = true;
+                payBtn.classList.add('disabled:bg-gray-500', 'disabled:cursor-not-allowed');
+
+                setTimeout(() => {
+                    ransomNoteContainer.classList.add('hidden');
+                    showMessage('fa-solid fa-skull-crossbones', '시간 만료. 모든 데이터를 영원히 잃었습니다.', 5000);
+                }, 3000);
+
+                return;
+            }
+
+            const hours = Math.floor(time / 3600);
+            const minutes = Math.floor((time % 3600) / 60);
+            const seconds = time % 60;
+            timerEl.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        // 타이머 시작
+        function startTimer() {
+            time = 24 * 60 * 60; // 24시간
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                time--;
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        // 시간 페널티 적용
+        function applyTimePenalty() {
+            time -= 43200; // 12시간 (43200초) 차감
+            updateTimerDisplay();
+        }
+
+        // 결제 버튼 클릭
+        payBtn.addEventListener('click', () => {
+            showMessage('fa-solid fa-server', '결제 확인 및 키 수신 중...', 3000, () => {
+                keyInput.value = decryptionKey;
+                showMessage('fa-solid fa-key', '복호화 키 수신 완료!', 2000);
+            });
+        });
+
+        // 복호화 버튼 클릭
+        decryptBtn.addEventListener('click', () => {
+            if (keyInput.value === decryptionKey) {
+                clearInterval(timerInterval);
+                ransomNoteContainer.classList.add('hidden');
+                showMessage('fa-solid fa-unlock', '복호화 진행 중...', 2000, startDecryption);
+            } else {
+                // 잘못된 키 입력 시 페널티 적용
+                applyTimePenalty();
+                keyInput.classList.add('shake');
+                setTimeout(() => keyInput.classList.remove('shake'), 500);
+                showMessage('fa-solid fa-xmark-circle', '키가 올바르지 않습니다!<br>페널티로 12시간이 차감됩니다.', 2000);
+            }
+        });
+
+        // 복호화 시작
+        function startDecryption() {
+            files.forEach((file, index) => {
+                setTimeout(() => {
+                    file.classList.remove('locked');
+                    const icon = file.querySelector('.icon');
+                    const filename = file.querySelector('.filename');
+                    icon.className = `${file.dataset.icon} icon`;
+                    filename.textContent = file.dataset.filename;
+                }, index * 300);
+            });
+
+            setTimeout(() => {
+                showMessage('fa-solid fa-shield-halved', '모든 파일이 성공적으로 복구되었습니다.', 3000, () => {
+                    location.reload();
+                });
+            }, files.length * 300 + 500);
+        }
+
+        // 메시지 오버레이 함수
+        function showMessage(iconClass, text, duration, callback) {
+            messageIcon.className = iconClass;
+            messageText.innerHTML = text; // innerHTML을 사용하여 <br> 태그 인식
+            messageOverlay.classList.remove('hidden');
+            messageOverlay.classList.add('flex');
+
+            setTimeout(() => {
+                messageOverlay.classList.add('hidden');
+                messageOverlay.classList.remove('flex');
+                if (callback) callback();
+            }, duration);
+        }
+
+    </script>
+</body>
+
+</html>
+f
